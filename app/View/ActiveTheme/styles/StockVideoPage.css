@@ -1,0 +1,15 @@
+div.black {
+    background: #000;
+}
+
+.margin-bottom {
+    margin-bottom: 20px !important;
+}
+
+.heading {
+    margin: 0;
+}
+
+.left-border {
+    /*border-left: 1px solid #eee;*/
+}
