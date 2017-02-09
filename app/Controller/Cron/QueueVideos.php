@@ -13,7 +13,7 @@ namespace App\Controller\Cron {
     use Minute\Swf2Vid\Swf2Vid;
 
     class QueueVideos {
-        const urgentMins = 60;
+        const urgentMins = 120;
         /**
          * @var Swf2Vid
          */
@@ -42,7 +42,7 @@ namespace App\Controller\Cron {
                 $elapsed = Carbon::now()->diffInSeconds(Carbon::parse($video->created_at));
 
                 if ($this->swf2Vid->queueVideo($video, $elapsed > self::urgentMins * 60)) {
-                    printf("Queueing video for project: #%d (%d)\n", $video->project_id, $video->video_id);
+                    printf("Queueing project/video: %d / %d | Elapsed: %ds %s\n", $video->project_id, $video->video_id, $elapsed, $elapsed > self::urgentMins * 60 ? '(urgent)' : '');
                     $this->dispatcher->fire(Swf2VidEvent::USER_VIDEO_QUEUED, new Swf2VidEvent($video->user_id, $video->toArray()));
                 }
             }
